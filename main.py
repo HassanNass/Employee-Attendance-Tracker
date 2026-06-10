@@ -173,3 +173,20 @@ def calculate_stats(employee):
 	# Return all calculated statistics as a tuple
 	return p_count, a_count, l_count, percentage
 
+
+# Display attendance statistics for all employees.
+# Show the number of Present, Absent, and Late records,
+# along with the attendance percentage for each employee.
+def display_statistics(employees):
+	print("\n--- Attendance Statistics ---")
+
+	# Loop through all employees and calculate their statistics
+	for employee in employees:
+
+		# Retrieve attendance statistics from calculate_stats()
+		p, a, l, percentage = calculate_stats(employee)
+
+		print(f"\n{employee['name']}")
+		print(f"  Present: {p}, Absent: {a}, Late: {l}")
+		print(f"  Attendance percentage: {percentage:.2f}%")
+
