@@ -190,3 +190,44 @@ def display_statistics(employees):
 		print(f"  Present: {p}, Absent: {a}, Late: {l}")
 		print(f"  Attendance percentage: {percentage:.2f}%")
 
+
+# Main program loop that displays the menu and handles user input,
+# then calls the appropriate function based on the selected option.
+def main(employees):
+
+	while True:	
+
+		# Display the main menu
+		print("\n")
+		print("--- Employee Attendance Tracker ---")
+		print("1. Register employee")
+		print("2. Record attendance")
+		print("3. Generate report")
+		print("4. Display statistics")
+		print("5. Exit")
+
+		# Ask the user to choose an option
+		choice = input("Enter your choice (1-5): ").strip()
+
+		# Execute the corresponding action
+		if choice == "1":
+			register_employee(employees)
+		elif choice == "2":
+			record_attendance(employees)
+		elif choice == "3":
+			generate_report(employees)
+		elif choice == "4":
+			display_statistics(employees)
+		elif choice == "5":
+			# Exit the program
+			print("Goodbye.")
+			break
+
+		else:
+			# Handle invalid menu selections
+			print("Invalid option! Please enter a number from 1 to 5: ")
+
+
+# Run the program only when this file is executed directly
+if __name__ == "__main__":
+	main(employees)
