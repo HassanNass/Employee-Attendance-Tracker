@@ -134,3 +134,42 @@ def generate_report(employees):
 			# Print the date and its label
 			print(f" {date} : {labels[status]}")
 
+
+# Calculate attendance satistics for a single employee
+def calculate_stats(employee):
+
+	# Counters for each attendance status
+	p_count = 0
+	a_count = 0
+	l_count = 0
+
+	# Loop through all attendance statuses
+	# .values() returns only the values from the attendance dictionary
+	for attendance in employee['attendance'].values():
+
+		# Count Present records
+		if attendance == "P":
+			p_count += 1
+
+		# Count Absent records
+		elif attendance == "A":
+			a_count += 1
+		
+		# Any remaining valid status is considered Late
+		else:
+			l_count += 1
+
+	# Total number of attendance records
+	total = len(employee['attendance'])
+
+	# Avoid division by zero if no attendance records exist
+	if total == 0:
+		percentage = 0.0
+
+	# Calculate attendance percentage
+	else:
+		percentage = (p_count / total) * 100
+
+	# Return all calculated statistics as a tuple
+	return p_count, a_count, l_count, percentage
+
