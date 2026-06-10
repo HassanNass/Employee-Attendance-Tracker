@@ -29,3 +29,24 @@ employees = [
 		}
 	}
 ]
+
+
+# Register a new employee in the system
+# Prevents duplicate employee names
+def register_employee(employees):
+
+	# Ask the user for the employee's and remove extra whitespaces
+	name = input("Enter employee name: ").strip()
+
+	# Check if an employee with the same name already exists (case-insensitive)
+	for employee in employees:
+		if employee['name'].lower() == name.lower():
+			print("An employee with that name already exists!")
+			print("\n")
+			return
+	
+	# Add the new employee with an empty attendance record
+	employees.append({"name": name, "attendance": {}})
+	print(f"Record registered successfully, with the name of {name}.")
+	print("\n")
+
