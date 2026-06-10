@@ -50,3 +50,61 @@ def register_employee(employees):
 	print(f"Record registered successfully, with the name of {name}.")
 	print("\n")
 
+
+# Allows the user to enter a date and attendance status
+# Prevents overwriting attendance records that already exists
+def record_attendance(employees):
+
+	# Ask for the employee's name and remove extra whitespaces
+	name = input("Enter the name: ").strip()
+
+	# Search for the employee by name (case-insensitive)
+	for employee in employees:
+		if employee['name'].lower() == name.lower():
+
+			# Keep asking for a date until a valid one is entered or the user types DONE to cancel
+			while True:
+				# Ask for the attendance date and remove extra whitespaces
+				date = input("Enter the date (YYYY-MM-DD): ").strip()
+
+				# Allow the user to cancel attendance recording
+				if date.upper() == "DONE":
+					return
+				
+				try:
+					# Validate that the date follows the YYYY-MM-DD format
+					parsed = datetime.strptime(date, "%Y-%m-%d")
+
+					# If it follows the correct format, set leading zeros
+					date = parsed.strftime("%Y-%m-%d")
+					break
+
+				except ValueError:
+					# Runs when the entered date is invalid
+					print("Invalid date! Please use the format YYYY-MM-DD or type 'Done' to cancel.")
+
+			# Prevent duplicate attendance entries for the same date
+			if date in employee['attendance']:
+				print("Attendance for that date already exists. No overwriting!")
+				return
+			
+			# Ask for the attendance status and remove extra whitespaces and convert it to uppercase
+			status = input("Enter status (P / A / L): ").strip().upper()
+
+			# Keep asking until a valid status is entered or the user types DONE to cancel
+			while status not in ["P", "A", "L"]:
+				print("Invalid status! Please enter P, A or L - or type 'Done' to cancel.")
+				status = input("Enter status (P / A / L): ").strip().upper()
+				
+				if status == "DONE":
+					return
+			
+			# Add the attendance record
+			employee['attendance'][date] = status
+			
+			print(f"Attendance recorded: {employee['name']} - {date} - {status}")
+			return
+
+	# If no employee with the given name was found, display	a message about that
+	print("Employee not found.")
+
