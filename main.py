@@ -108,3 +108,29 @@ def record_attendance(employees):
 	# If no employee with the given name was found, display	a message about that
 	print("Employee not found.")
 
+
+# Generate and display an attendance report for all employees
+def generate_report(employees):
+
+	# Dictionary used to translate attendance codes into meaningful words
+	labels = {"P": "Present", "A": "Absent", "L": "Late"}
+
+	print("\n--- Attendance Report ---")
+
+	# Loop through every employee in the system
+	for employee in employees:
+
+		# Display the employee's name
+		print(f"\n{employee['name']}")
+
+		# Check if the employee has any attendance records
+		if not employee['attendance']:
+			print(" No attendance records found.")
+			continue
+
+		# Loop through each attendance using item() that return key-value pairs
+		for date, status in employee['attendance'].items():
+
+			# Print the date and its label
+			print(f" {date} : {labels[status]}")
+
